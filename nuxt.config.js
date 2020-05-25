@@ -1,3 +1,4 @@
+import EventService from './services/EventService.js'
 
 export default {
   mode: 'universal',
@@ -18,7 +19,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#39b982' },
   /*
   ** Global CSS
   */
@@ -55,6 +56,15 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+    }
+  },
+  generate: {
+    routes: () => {
+      return EventService.getEvents().then(response => {
+        return response.data.map(event => {
+          return '/event/' + event.id
+        })
+      })
     }
   }
 }
